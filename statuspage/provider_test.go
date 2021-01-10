@@ -18,6 +18,7 @@ var (
 	testAccProvider        *schema.Provider
 	pageID                 string
 	audienceSpecificPageID string
+	organizationID string
 )
 
 func init() {
@@ -27,6 +28,7 @@ func init() {
 	}
 	pageID = os.Getenv("STATUSPAGE_PAGE_ID")
 	audienceSpecificPageID = os.Getenv("STATUSPAGE_AUDIENCE_SPECIFIC_PAGE_ID")
+	organizationID = os.Getenv("STATUSPAGE_ORGANIZATION_ID")
 }
 
 func isDebug() bool {
@@ -43,7 +45,7 @@ func isAPIKeySet() bool {
 	return false
 }
 
-func isPageIdSet() bool {
+func isPageIDSet() bool {
 	if os.Getenv("STATUSPAGE_PAGE_ID") != "" {
 		return true
 	}
@@ -71,13 +73,20 @@ func isDatadogAppKeySet() bool {
 	return false
 }
 
+func isOrganizationIDSet() bool {
+	if os.Getenv("STATUSPAGE_ORGANIZATION_ID") != "" {
+		return true
+	}
+	return false
+}
+
 // testAccPreCheck validates the necessary test API keys exist
 // in the testing environment
 func testAccPreCheck(t *testing.T) {
 	if !isAPIKeySet() {
 		t.Fatal("STATUSPAGE_API_KEY or SP_API_KEY must be set for acceptance tests")
 	}
-	if !isPageIdSet() {
+	if !isPageIDSet() {
 		t.Fatal("STATUSPAGE_PAGE_ID must be set for acceptance tests")
 	}
 	if !isAudienceSpecificPageIdSet() {
@@ -88,6 +97,9 @@ func testAccPreCheck(t *testing.T) {
 	}
 	if !isDatadogAppKeySet() {
 		t.Fatal("DD_APP_KEY must be set for acceptance tests")
+	}
+	if !isOrganizationIDSet() {
+		t.Fatal("STATUSPAGE_ORGANIZATION_ID must be set for acceptance tests")
 	}
 }
 

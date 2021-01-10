@@ -74,6 +74,7 @@ func testAccCheckComponentConfigUpdated(rand int) string {
 		showcase = false
 	}
 	`, rand, pageID)
+
 }
 
 func testAccCheckStatuspageComponentDestroy(s *terraform.State) error {
@@ -92,4 +93,5 @@ func testAccCheckStatuspageComponentDestroy(s *terraform.State) error {
 		return fmt.Errorf("component still exists")
 	}
 	return nil
+
 }

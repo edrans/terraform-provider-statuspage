@@ -88,6 +88,7 @@ func testAccCheckComponentGroupConfigUpdated(rand int) string {
 		components  = ["${statuspage_component.component_1.id}", "${statuspage_component.component_2.id}"]
 	}
 	`, rand, pageID)
+
 }
 
 func testAccCheckStatuspageComponentGroupDestroy(s *terraform.State) error {
