@@ -1,9 +1,16 @@
 image: gitpod/workspace-full
 
 tasks:
+  - before: |
+      sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+      curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+      sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+      sudo apt-get update && sudo apt-get install terraform
+
   - init: go get && go build ./... && go test ./... && make
-    command: go run
+    command: make install
 
 vscode:
   extensions:
-    - hashicorp.terraform@2.3.0:KgEabs4baG2MuLl5VL6Iyg==
+    - golang.go
+    - hashicorp.terraform
